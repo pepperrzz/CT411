@@ -131,8 +131,6 @@ function setup(){
 }
 
 function draw(){
-//    background(col);
-//    image(imgg.loc, imgg.x, imgg.y, imgg.size, imgg.size);
     
     imageMode(CENTER);
     image(bg.loc, width/2, height/2);
@@ -144,9 +142,6 @@ function draw(){
     
     
     if (mouseX > bg.left && mouseX < bg.right && mouseY > bg.top && mouseY < bg.bottom){
-    
-        
-//      sound1.play();
         
         image(display1, width/2, height/2);
         
@@ -160,9 +155,6 @@ function draw(){
     
     
     if (mouseX > bg2.left && mouseX < bg2.right && mouseY > bg2.top && mouseY < bg2.bottom){
-    
-        
-//      sound1.play();
         
         image(display2, width/2, height/2);
         
@@ -176,9 +168,6 @@ function draw(){
     
     
     if (mouseX > bg3.left && mouseX < bg3.right && mouseY > bg3.top && mouseY < bg3.bottom){
-    
-        
-//      sound1.play();
         
         image(display3, width/2, height/2);
         
@@ -192,9 +181,6 @@ function draw(){
     
     
     if (mouseX > bg4.left && mouseX < bg4.right && mouseY > bg4.top && mouseY < bg4.bottom){
-    
-        
-//      sound1.play();
         
         image(display4, width/2, height/2);
         
@@ -208,9 +194,6 @@ function draw(){
     
     
     if (mouseX > bg5.left && mouseX < bg5.right && mouseY > bg5.top && mouseY < bg5.bottom){
-    
-        
-//      sound1.play();
         
         image(display5, width/2, height/2);
         
@@ -224,9 +207,6 @@ function draw(){
     
     
     if (mouseX > bg6.left && mouseX < bg6.right && mouseY > bg6.top && mouseY < bg6.bottom){
-    
-        
-//      sound1.play();
         
         image(display6, width/2, height/2);
         
@@ -247,8 +227,7 @@ function mousePressed(){
     if (mouseX > bg2.left && mouseX < bg2.right && mouseY > bg2.top && mouseY < bg2.bottom){
     
         sound2.play();
-        
-//            image(display1, width/2, height/2);
+
         
     }
     
@@ -256,7 +235,7 @@ function mousePressed(){
     
         sound3.play();
         
-//            image(display1, width/2, height/2);
+
         
     }
     
@@ -264,7 +243,6 @@ function mousePressed(){
     
         sound4.play();
         
-//            image(display1, width/2, height/2);
         
     }
     
@@ -272,7 +250,6 @@ function mousePressed(){
     
         sound5.play();
         
-//            image(display1, width/2, height/2);
         
     }
     
@@ -280,7 +257,6 @@ function mousePressed(){
     
         sound6.play();
         
-//            image(display1, width/2, height/2);
         
     }
     
