@@ -112,7 +112,7 @@ function preload(){
     sound5 = loadSound("sfx_wpn_cannon4.wav");
     sound2 = loadSound("Siren-SoundBible.com-1094437108.mp3");
     sound4 = loadSound("shotgun-reload-old_school-RA_The_Sun_God-580332022.mp3");
-    sound3 = loadSound("bop3.mp3");
+    sound3 = loadSound("Cartoon Hop-SoundBible.com-553158131.mp3");
     sound6 = loadSound("sfx_coin_double1.wav");
 
     display1 = loadImage("01.png");
