@@ -176,7 +176,7 @@ function Paddle (){
     
     this.score = function (){
         
-        this.color;
+        this.color = color(0, 231, 255);
         score++;
         
     }
