@@ -1,13 +1,52 @@
 var balls = [];
 
+var paddle;
+
 //var speed = 5; 
 
-var click;
+var type;
+
+var score = 0;
+    var r, g, b;
+
+var state = 0;
+    
+
+var reloadB;
+var reload;
+    var relRectX = 360;
+    var relRectY = 683;
+    var relRectSize = 40;
+    var relRtop = relRectY;
+    var relRbottom = relRectY + relRectSize;
+    var relRleft = relRectX;
+    var relRright = relRectX + relRectSize;
+
+
+var addW;
+var add;
+    var addRectX = 172;
+    var addRectY = 675;
+    var addRectSize = 160;
+    var addRtop = addRectY;
+    var addRbottom = addRectY + addRectSize;
+    var addRleft = addRectX;
+    var addRright = addRectX + addRectSize;
+
+//      if(mouseX > addRleft && mouseX < addRright && mouseY > addRtop && mouseY < addRbottom )
         
 
 function preload (){
     
-    click = loadImage("clicktoaddballs.png");
+    add = loadImage("addballs.png");
+    
+    addW = loadImage("addballsW.png");
+    
+    reload = loadImage("reload1x.png");
+    
+    reloadB = loadImage("reloadB.png");
+    
+    type = loadFont("Limerick-Serial-Heavy-Regular.ttf");
     
 }
 
@@ -16,12 +55,20 @@ function setup (){
     
     createCanvas(1200, 750);
     
-    imageMode(CENTER);
+    textFont(type);
+    textSize(38);
     
-//    for (var i = 0; i < 2; i++){
+
+    
+    paddle = new Paddle();
+    
+//    imageMode(CENTER);
+    
+//    for (var i = 0; i < 1; i++){
 //        
-//        balls[i] = new Ball ();
+//        balls[i] = new Ball (paddle);
 //    }
+
     
 }
 
@@ -29,60 +76,161 @@ function draw (){
     
     background (0);
     
-    image(click, 1050, 710);
+    image(addW, addRectX, addRectY);
     
-    paddle();
+//    add hover
+    if(mouseX > addRleft && mouseX < addRright && mouseY > addRtop && mouseY < addRbottom){
     
-    for (var i = 0; i < balls.length; i++){
+        image(add, addRectX, addRectY);
+    
+    }
+    
+    image(reload, relRectX, relRectY);
+    
+//    reload hover
+    if (mouseX > relRleft && mouseX < relRright && mouseY > relRtop && mouseY < relRbottom){
+            
+        image(reloadB, relRectX, relRectY);
+            
+        }
+    
+    paddle.render();
+    paddle.move();
+    
+//    for (var i = 0; i < balls.length; i++){
+        
+    for(var i = balls.length - 1; i >= 0; i--){
         
         balls[i].drawBall(width, random(740));
         balls[i].bounce();
         balls[i].move();
-    
-//      Paddle Bounce
-        if (balls[i].intersects(paddle)){
-
-            balls[i].bounceBack(paddle);
-            balls[i].move(paddle);
+        
+        if (balls[i].offScreen()){
+            
+            balls.splice(i, 1);
+            
         }
+        
+    
+    }
+
+        
+    
+    
+//    Score
+    fill(255, 121, 255);
+    textSize(32);
+    textAlign(RIGHT);
+    text("score:         ", 1155, 722);
+    
+    textSize(38);
+    fill(0, 231, 255);
+    text(score, 1155, 722);
+    
+    
+//        if(mouseX > rLeft && mouseX < rRight && mouseY > rTop && mouseY < rBottom ){
+//          
+//        background (255, 255, 0);
+//    
+//    }
+    
+    
+    
+}
+
+
+
+function reset (){
+    
+    score = 0;
+    
+        for(var i = balls.length - 1; i >= 0; i--){
+        
+        balls[i].drawBall(width, random(740));
+        balls[i].bounce();
+        balls[i].move();
+        
+        if (mouseX > relRleft && mouseX < relRright && mouseY > relRtop && mouseY < relRbottom){
+            
+            balls.splice(i, balls.length);
+            
+        }
+        
+    
     }
     
 }
     
 
 
-function paddle (){
+function Paddle (){
     
     this.pWidth = 15;
     this.pHeight = 230;
     this.pX = 50;
-    this.pY = mouseY - this.pHeight / 2;
     
-    fill (255, 121, 255);
-    rect (this.pX, this.pY, this.pWidth, this.pHeight);
+    this.pY;
+    
+    
+    this.color = color(255, 121, 255);
+    
+    this.score = function (){
+        
+        this.color;
+        score++;
+        
+    }
 
+    
+    
+    this.render = function (){
+    
+    fill (this.color);
+    rect (this.pX, this.pY, this.pWidth, this.pHeight);   
+    this.color = color(255, 121, 255);
         
     }
     
-
-
-function Ball (){
+    this.move = function (){
+        
+    this.pY = mouseY - this.pHeight / 2;
+        
+    }
+    
+}
     
 
+
+function Ball(paddle){
+    
+    this.paddle = paddle;
+    
     this.x = width;
     this.y = random(height);
-    this.speed = 12;
-    this.speedY = 8;
+    this.speed = 17;
+    this.speedY = 9;
     this.size = 20;
     this.r = 10;
+    
+//    this.color = color(0, 231, 255);
+//    
+//    this.score = function (){
+//        
+//    this.color = color(r, 255, b);
+//        
+//    }
+    
     
     this.drawBall = function (x, y){
         
         noStroke ();
         fill (0, 231, 255);
         ellipse (this.x, this.y, this.size, this.size);
+//        this.color = color(0, 231, 255);
         
     }
+    
+    
     
     this.bounce = function (){
         
@@ -96,6 +244,8 @@ function Ball (){
             this.speedY = this.speedY * -1;
         }
         
+        this.testPaddle();
+        
     }
 
     
@@ -105,54 +255,78 @@ function Ball (){
         
         this.y = this.y + this.speedY;
         
+        
+        this.testPaddle();
+        
     }
-
     
-    this.intersects = function(paddle){
+    
+    this.offScreen = function (){
         
-        var d = dist(this.x, this.y, paddle.pX, paddle.pY);
+        if(this.x < 0){
+            
+            return true;
+            
+        } else{
+            return false;
+        }
         
-            if(d < this.r){
-            
-                return true;
-            } else {
-            
-                return false;
-            }
     }
+    
+    
+    this.testPaddle = function(){
+        
+        
+        var top = (this.y + this.size/2 > this.paddle.pY);
+        
+        var bottom = (this.y - this.size/2 < this.paddle.pY + this.paddle.pHeight);
+        
+        var right = (this.x - this.size/2 < this.paddle.pY + this.paddle.pWidth);
+        
+        var left = (this.x + this.size/2 < this.paddle.pY);
+        
+        
+        if(this.x < 80 && top && bottom && right && left){
+            
+            this.speed = 17;
+            this.speedY = 9;
+            
+            
+            this.paddle.score();
+            
+        }
+        
+        
+    
+        
+        
+
+        
+    }
+        
+    
+    
 }
 
 
-    this.bounceBack = function (paddle){
-        
-//        if (this.x > paddle){
-//            
-//            this.speed = this.speed * -1;
-//        }
-//        
-//        if (this.y > height || this.y < 0){
-//            
-//            this.speedY = this.speedY * -1;
-//        }
-        
-        
-//        example found online
-        if(this.speed > 0){
-            
-            this.x = paddle.pY - this.r;
-            
-        } else {
-            
-            this.y = paddle.pY + this.r;
-            
-        } this.speed *= -1;
-        
-    }
+
+
 
 
 function mousePressed (){
     
-    balls.push (new Ball());
+    if(mouseX > addRleft && mouseX < addRright && mouseY > addRtop && mouseY < addRbottom){
+    
+        balls.push (new Ball(paddle));
+    
+    }
+
+    
+    if(mouseX > relRleft && mouseX < relRright && mouseY > relRtop && mouseY < relRbottom){
+    
+        reset();
+    
+    }
     
 }
 
